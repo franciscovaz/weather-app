@@ -64,3 +64,40 @@ export const DescriptionAndTemperature = styled.div`
     color: #dcc02b;
   }
 `;
+
+export const NewLocation = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 2rem 3.2rem;
+  padding: 1.2rem;
+
+  > svg {
+    margin-left: 0.8rem;
+  }
+`;
+
+export const InputNewLocation = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  input {
+    flex: 1;
+    border: 0;
+    border-radius: 0.8rem;
+
+    padding: 1rem 3.8rem 1rem;
+
+    &::placeholder {
+      color: #666360;
+    }
+  }
+
+  svg {
+    margin-right: -3rem;
+    z-index: 1;
+  }
+`;
