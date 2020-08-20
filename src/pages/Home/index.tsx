@@ -59,7 +59,7 @@ const Home: React.FC = () => {
       </LocationInfoContainer>
 
       <LocationInfoContainer>
-        <h2>Coimbra</h2>
+        <h2>Coimbra, Portugal</h2>
         <IconAndTemperatureInfo>
           <FiSunrise size={56} />
           <h1>21ºC</h1>
@@ -71,7 +71,7 @@ const Home: React.FC = () => {
       </LocationInfoContainer>
 
       <LocationInfoContainer>
-        <h2>Portugal</h2>
+        <h2>Porto, Portugal</h2>
         <IconAndTemperatureInfo>
           <FiSunrise size={56} />
           <h1>25ºC</h1>
