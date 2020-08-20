@@ -37,13 +37,15 @@ export const LocationInfoContainer = styled.div`
 export const IconAndTemperatureInfo = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+
+  padding: 0 11%;
 
   margin-top: 2.5rem;
 
-  svg {
+  /*  svg {
     margin-right: 25%;
-  }
+  } */
 
   h1 {
     font-size: 5.6rem;
