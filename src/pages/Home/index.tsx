@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { FiMapPin, FiSunrise, FiMap, FiPlusCircle } from 'react-icons/fi';
+import api from '../../services/api';
 
 import {
   Container,
@@ -13,6 +14,13 @@ import {
 } from './styles';
 
 const Home: React.FC = () => {
+  useEffect(() => {
+    api
+      .get(`?q=${'Aveiro,pt'}&appid=${'25059393c253e6364173550fdcd1fc10'}`)
+      .then(response => {
+        console.log(response.data);
+      });
+  }, []);
   return (
     <Container>
       <LocationTitle>
