@@ -13,26 +13,38 @@ import {
   InputNewLocation,
 } from './styles';
 
+showinterface CurrentCityInfoProps {
+  main: { temp: number; temp_max: number; temp_min: number };
+  name: string;
+  sys: { country: string; sunrise: number; sunset: number };
+  weather: Array<{ description: string; icon: string; main: string }>;
+}
+
 const Home: React.FC = () => {
   const [initialPosition, setInitialPosition] = useState<[number, number]>([
     0,
     0,
   ]);
+  const [
+    currentCityInfo,
+    setCurrentCityInfo,
+  ] = useState<CurrentCityInfoProps | null>(null);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(location => {
       const { latitude, longitude } = location.coords;
 
       api
-        .get(
+        .get<CurrentCityInfoProps>(
           `?lat=${latitude}&lon=${longitude}&units=metric&appid=${'25059393c253e6364173550fdcd1fc10'}`,
         )
         .then(response => {
           console.log(response.data);
+
+          setCurrentCityInfo(response.data);
         });
 
       setInitialPosition([latitude, longitude]);
-      console.log('Coords: ', latitude, longitude);
     });
   }, []);
   return (
@@ -42,17 +54,29 @@ const Home: React.FC = () => {
         <h1>Current Location</h1>
       </LocationTitle>
 
-      <LocationInfoContainer>
-        <h2>Gafanha de Aquém, Aveiro</h2>
-        <IconAndTemperatureInfo>
-          <FiSunrise size={56} />
-          <h1>19ºC</h1>
-        </IconAndTemperatureInfo>
-        <DescriptionAndTemperature>
-          <p>Sol</p>
-          <span>11ºC - 26ºC</span>
-        </DescriptionAndTemperature>
-      </LocationInfoContainer>
+      {currentCityInfo && (
+        <LocationInfoContainer>
+          <h2>
+            {currentCityInfo.name}, {currentCityInfo.sys.country}
+          </h2>
+
+          <IconAndTemperatureInfo>
+            {/* <FiSunrise size={56} /> */}
+            <img
+              src={`http://openweathermap.org/img/w/${currentCityInfo.weather[0].icon}.png`}
+              alt=""
+            />
+            <h1>{parseInt(String(currentCityInfo.main.temp), 10)}ºC</h1>
+          </IconAndTemperatureInfo>
+          <DescriptionAndTemperature>
+            <p>{currentCityInfo.weather[0].main}</p>
+            <span>
+              {parseInt(String(currentCityInfo.main.temp_min), 10)}ºC -{' '}
+              {parseInt(String(currentCityInfo.main.temp_max), 10)}ºC
+            </span>
+          </DescriptionAndTemperature>
+        </LocationInfoContainer>
+      )}
 
       <LocationTitle>
         <FiMapPin size={20} color="#dcc02b" />
