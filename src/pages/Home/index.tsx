@@ -16,7 +16,9 @@ import {
 const Home: React.FC = () => {
   useEffect(() => {
     api
-      .get(`?q=${'Aveiro,pt'}&appid=${'25059393c253e6364173550fdcd1fc10'}`)
+      .get(
+        `?q=${'Aveiro,pt'}&units=metric&appid=${'25059393c253e6364173550fdcd1fc10'}`,
+      )
       .then(response => {
         console.log(response.data);
       });
