@@ -13,7 +13,7 @@ import {
   InputNewLocation,
 } from './styles';
 
-showinterface CurrentCityInfoProps {
+interface CurrentCityInfoProps {
   main: { temp: number; temp_max: number; temp_min: number };
   name: string;
   sys: { country: string; sunrise: number; sunset: number };
