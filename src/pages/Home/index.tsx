@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { FiMapPin, FiSunrise, FiMap, FiPlusCircle } from 'react-icons/fi';
 import api from '../../services/api';
@@ -14,14 +14,26 @@ import {
 } from './styles';
 
 const Home: React.FC = () => {
+  const [initialPosition, setInitialPosition] = useState<[number, number]>([
+    0,
+    0,
+  ]);
+
   useEffect(() => {
-    api
-      .get(
-        `?q=${'Aveiro,pt'}&units=metric&appid=${'25059393c253e6364173550fdcd1fc10'}`,
-      )
-      .then(response => {
-        console.log(response.data);
-      });
+    navigator.geolocation.getCurrentPosition(location => {
+      const { latitude, longitude } = location.coords;
+
+      api
+        .get(
+          `?lat=${latitude}&lon=${longitude}&units=metric&appid=${'25059393c253e6364173550fdcd1fc10'}`,
+        )
+        .then(response => {
+          console.log(response.data);
+        });
+
+      setInitialPosition([latitude, longitude]);
+      console.log('Coords: ', latitude, longitude);
+    });
   }, []);
   return (
     <Container>
