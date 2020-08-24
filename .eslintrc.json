@@ -1,7 +1,7 @@
 {
   "env": {
-    "es6": true,
     "browser": true,
+    "es6": true,
     "jest": true
   },
   "extends": [
@@ -41,6 +41,7 @@
     "import/prefer-default-export": "off",
     "import/no-duplicates": "off",
     "@typescript-eslint/camelcase": "off",
+    "camelcase": "off",
     "@typescript-eslint/explicit-function-return-type": [
       "error",
       {
