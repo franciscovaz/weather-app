@@ -9022,6 +9022,11 @@ react-error-overlay@^6.0.7:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.7.tgz#1dcfb459ab671d53f660a991513cb2f0a0553108"
   integrity sha512-TAv1KJFh3RhqxNvhzxj6LeT5NWklP6rDr2a0jaTfsZ5wSZWHOGeqQyejUp3xxLfPt2UpyJEcVQB/zyPcmonNFA==
 
+react-icons-weather@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-icons-weather/-/react-icons-weather-1.0.5.tgz#c327f22c66f59565061bb82118d4c3b32482f7b9"
+  integrity sha512-FdFL3Pbtby2kg0/40FkUNDyn5hyFGqwRH8/IGAflr9L7m76DPnW5E7c+V4dGpvqoAR1ua7AlEt2MeKxSYESasg==
+
 react-icons@^3.11.0:
   version "3.11.0"
   resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-3.11.0.tgz#2ca2903dfab8268ca18ebd8cc2e879921ec3b254"

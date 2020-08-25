@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, FormEvent } from 'react';
 
 import { FiMapPin, FiSunrise, FiMap, FiPlusCircle } from 'react-icons/fi';
 import api from '../../services/api';
@@ -21,14 +21,15 @@ interface CurrentCityInfoProps {
 }
 
 const Home: React.FC = () => {
-  const [initialPosition, setInitialPosition] = useState<[number, number]>([
+  /* const [initialPosition, setInitialPosition] = useState<[number, number]>([
     0,
     0,
-  ]);
+  ]); */
   const [
     currentCityInfo,
     setCurrentCityInfo,
   ] = useState<CurrentCityInfoProps | null>(null);
+  const [newLocation, setNewLocation] = useState('');
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(location => {
@@ -43,10 +44,14 @@ const Home: React.FC = () => {
 
           setCurrentCityInfo(response.data);
         });
-
-      setInitialPosition([latitude, longitude]);
     });
   }, []);
+
+  function handleAddNewLocation(e: FormEvent): void {
+    e.preventDefault();
+    console.log(newLocation);
+  }
+
   return (
     <Container>
       <LocationTitle>
@@ -64,6 +69,7 @@ const Home: React.FC = () => {
             {/* <FiSunrise size={56} /> */}
             <img
               src={`http://openweathermap.org/img/w/${currentCityInfo.weather[0].icon}.png`}
+              width="85"
               alt=""
             />
             <h1>{parseInt(String(currentCityInfo.main.temp), 10)}ºC</h1>
@@ -80,17 +86,21 @@ const Home: React.FC = () => {
 
       <LocationTitle>
         <FiMapPin size={20} color="#dcc02b" />
-        <h1>Day Detail</h1>
+        <h1>Other Locations</h1>
       </LocationTitle>
 
-      <NewLocation>
-        <InputNewLocation>
-          <FiMap size={20} color="#dcc02b" />
-          <input type="text" />
-        </InputNewLocation>
+      <form onSubmit={handleAddNewLocation}>
+        <NewLocation>
+          <InputNewLocation>
+            <FiMap size={20} color="#dcc02b" />
+            <input type="text" onChange={e => setNewLocation(e.target.value)} />
+          </InputNewLocation>
 
-        <FiPlusCircle size={28} color="#dcc02b" />
-      </NewLocation>
+          <button type="submit">
+            <FiPlusCircle size={28} color="#dcc02b" />
+          </button>
+        </NewLocation>
+      </form>
 
       <LocationInfoContainer>
         <h2>Ilhavo, Aveiro</h2>
