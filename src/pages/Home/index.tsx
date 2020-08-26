@@ -37,7 +37,7 @@ const Home: React.FC = () => {
 
       api
         .get<CurrentCityInfoProps>(
-          `?lat=${latitude}&lon=${longitude}&units=metric&appid=${'25059393c253e6364173550fdcd1fc10'}`,
+          `?lat=${latitude}&lon=${longitude}&units=metric&appid=${process.env.REACT_APP_OWA_API_KEY}`,
         )
         .then(response => {
           console.log(response.data);
