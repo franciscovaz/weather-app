@@ -1,4 +1,4 @@
-import React, { useEffect, useState, FormEvent } from 'react';
+import React, { useEffect, useState, FormEvent, useCallback } from 'react';
 
 import { FiMapPin, FiSunrise, FiMap, FiPlusCircle } from 'react-icons/fi';
 import usePlacesAutocomplete, {
@@ -34,7 +34,8 @@ const Home: React.FC = () => {
     currentCityInfo,
     setCurrentCityInfo,
   ] = useState<CurrentCityInfoProps | null>(null);
-  // const [newLocation, setNewLocation] = useState('');
+
+  const [cities, setCities] = useState<CurrentCityInfoProps[]>([]);
 
   const {
     value,
@@ -46,7 +47,6 @@ const Home: React.FC = () => {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(location => {
       const { latitude, longitude } = location.coords;
-
       api
         .get<CurrentCityInfoProps>(
           `?lat=${latitude}&lon=${longitude}&units=metric&appid=${process.env.REACT_APP_OWA_API_KEY}`,
@@ -59,40 +59,36 @@ const Home: React.FC = () => {
     });
   }, []);
 
-  const handleSelectNewLocation = (description: Suggestion): void => {
-    setValue(description.description, false);
-    clearSuggestions();
+  const handleSelectNewLocation = useCallback(
+    (description: Suggestion) => {
+      setValue(description.description, false);
+      clearSuggestions();
 
-    getGeocode({ address: description.place_id })
-      .then(results => getLatLng(results[0]))
-      .then(({ lat, lng }) => {
-        console.log('📍 Coordinates: ', { lat, lng });
-      })
-      .catch(err => {
-        console.log('Error: ', err);
-      });
-  };
-
-  /* const renderSuggestions = (): ReactNode =>
-    data.map(suggestion => {
-      const {
-        id,
-        structured_formatting: { main_text, secondary_text },
-      } = suggestion;
-
-      return (
-        // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-        // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-        <li key={id}>
-          <strong>{main_text}</strong>
-          <small>{secondary_text}</small>
-        </li>
-      );
-    }); */
+      getGeocode({ address: description.place_id })
+        .then(results => getLatLng(results[0]))
+        .then(({ lat, lng }) => {
+          console.log('📍 Coordinates: ', { lat, lng });
+        })
+        .catch(err => {
+          console.log('Error: ', err);
+        });
+    },
+    [clearSuggestions, setValue],
+  );
 
   function handleAddNewLocation(e: FormEvent): void {
     e.preventDefault();
-    // console.log(newLocation);
+    console.log(cities);
+    // Chamada à API para receber info da cidade
+    api
+      .get(
+        `?q=${value}&units=metric&appid=${process.env.REACT_APP_OWA_API_KEY}`,
+      )
+      .then(response => {
+        console.log(response.data);
+        // Add ao array de cidades
+        setCities([...cities, response.data]);
+      });
   }
 
   return (
@@ -150,13 +146,14 @@ const Home: React.FC = () => {
         {status === 'OK' &&
           data.map((suggestion, i) => {
             const {
+              id,
               structured_formatting: { main_text, secondary_text },
             } = suggestion;
 
             return (
               <ul key={String(i)}>
-                <li>
-                  <strong>{main_text}</strong>
+                <li onClick={() => handleSelectNewLocation(suggestion)}>
+                  <strong>{main_text}, </strong>
                   <small>{secondary_text}</small>
                 </li>
               </ul>
@@ -164,41 +161,31 @@ const Home: React.FC = () => {
           })}
       </form>
 
-      <LocationInfoContainer>
-        <h2>Ilhavo, Aveiro</h2>
-        <IconAndTemperatureInfo>
-          <FiSunrise size={56} />
-          <h1>15ºC</h1>
-        </IconAndTemperatureInfo>
-        <DescriptionAndTemperature>
-          <p>Nublado</p>
-          <span>11ºC - 26ºC</span>
-        </DescriptionAndTemperature>
-      </LocationInfoContainer>
+      {cities &&
+        cities.map(city => (
+          <LocationInfoContainer key={city.name}>
+            <h2>
+              {city.name}, {city.sys.country}
+            </h2>
 
-      <LocationInfoContainer>
-        <h2>Coimbra, Portugal</h2>
-        <IconAndTemperatureInfo>
-          <FiSunrise size={56} />
-          <h1>21ºC</h1>
-        </IconAndTemperatureInfo>
-        <DescriptionAndTemperature>
-          <p>Sol</p>
-          <span>11ºC - 26ºC</span>
-        </DescriptionAndTemperature>
-      </LocationInfoContainer>
-
-      <LocationInfoContainer>
-        <h2>Porto, Portugal</h2>
-        <IconAndTemperatureInfo>
-          <FiSunrise size={56} />
-          <h1>25ºC</h1>
-        </IconAndTemperatureInfo>
-        <DescriptionAndTemperature>
-          <p>Cenas de Sol e Nublado</p>
-          <span>7ºC - 33ºC</span>
-        </DescriptionAndTemperature>
-      </LocationInfoContainer>
+            <IconAndTemperatureInfo>
+              {/* <FiSunrise size={56} /> */}
+              <img
+                src={`http://openweathermap.org/img/w/${city.weather[0].icon}.png`}
+                width="85"
+                alt=""
+              />
+              <h1>{parseInt(String(city.main.temp), 10)}ºC</h1>
+            </IconAndTemperatureInfo>
+            <DescriptionAndTemperature>
+              <p>{city.weather[0].main}</p>
+              <span>
+                {parseInt(String(city.main.temp_min), 10)}ºC -{' '}
+                {parseInt(String(city.main.temp_max), 10)}ºC
+              </span>
+            </DescriptionAndTemperature>
+          </LocationInfoContainer>
+        ))}
     </Container>
   );
 };
