@@ -52,8 +52,6 @@ const Home: React.FC = () => {
           `?lat=${latitude}&lon=${longitude}&units=metric&appid=${process.env.REACT_APP_OWA_API_KEY}`,
         )
         .then(response => {
-          console.log(response.data);
-
           setCurrentCityInfo(response.data);
         });
     });
@@ -67,10 +65,10 @@ const Home: React.FC = () => {
       getGeocode({ address: description.place_id })
         .then(results => getLatLng(results[0]))
         .then(({ lat, lng }) => {
-          console.log('📍 Coordinates: ', { lat, lng });
+          // console.log('📍 Coordinates: ', { lat, lng });
         })
         .catch(err => {
-          console.log('Error: ', err);
+          // console.log('Error: ', err);
         });
     },
     [clearSuggestions, setValue],
@@ -89,6 +87,8 @@ const Home: React.FC = () => {
         // Add ao array de cidades
         setCities([...cities, response.data]);
       });
+
+    setValue('');
   }
 
   return (
@@ -135,6 +135,7 @@ const Home: React.FC = () => {
             <input
               type="text"
               value={value}
+              placeholder="search new location"
               onChange={e => setValue(e.target.value)}
             />
           </InputNewLocation>
