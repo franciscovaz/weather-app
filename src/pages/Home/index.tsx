@@ -1,4 +1,4 @@
-import React, { useEffect, useState, FormEvent, ReactNode } from 'react';
+import React, { useEffect, useState, FormEvent } from 'react';
 
 import { FiMapPin, FiSunrise, FiMap, FiPlusCircle } from 'react-icons/fi';
 import usePlacesAutocomplete, {
@@ -37,7 +37,6 @@ const Home: React.FC = () => {
   // const [newLocation, setNewLocation] = useState('');
 
   const {
-    ready,
     value,
     suggestions: { status, data },
     setValue,
@@ -74,7 +73,7 @@ const Home: React.FC = () => {
       });
   };
 
-  const renderSuggestions = (): ReactNode =>
+  /* const renderSuggestions = (): ReactNode =>
     data.map(suggestion => {
       const {
         id,
@@ -89,7 +88,7 @@ const Home: React.FC = () => {
           <small>{secondary_text}</small>
         </li>
       );
-    });
+    }); */
 
   function handleAddNewLocation(e: FormEvent): void {
     e.preventDefault();
@@ -148,7 +147,21 @@ const Home: React.FC = () => {
             <FiPlusCircle size={28} color="#dcc02b" />
           </button>
         </NewLocation>
-        {status === 'OK' && <ul>{renderSuggestions()}</ul>}
+        {status === 'OK' &&
+          data.map((suggestion, i) => {
+            const {
+              structured_formatting: { main_text, secondary_text },
+            } = suggestion;
+
+            return (
+              <ul key={String(i)}>
+                <li>
+                  <strong>{main_text}</strong>
+                  <small>{secondary_text}</small>
+                </li>
+              </ul>
+            );
+          })}
       </form>
 
       <LocationInfoContainer>
