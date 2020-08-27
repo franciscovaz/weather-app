@@ -1,6 +1,11 @@
-import React, { useEffect, useState, FormEvent } from 'react';
+import React, { useEffect, useState, FormEvent, ReactNode } from 'react';
 
 import { FiMapPin, FiSunrise, FiMap, FiPlusCircle } from 'react-icons/fi';
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+  Suggestion,
+} from 'use-places-autocomplete';
 import api from '../../services/api';
 
 import {
@@ -29,7 +34,15 @@ const Home: React.FC = () => {
     currentCityInfo,
     setCurrentCityInfo,
   ] = useState<CurrentCityInfoProps | null>(null);
-  const [newLocation, setNewLocation] = useState('');
+  // const [newLocation, setNewLocation] = useState('');
+
+  const {
+    ready,
+    value,
+    suggestions: { status, data },
+    setValue,
+    clearSuggestions,
+  } = usePlacesAutocomplete({ requestOptions: {}, debounce: 300 });
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(location => {
@@ -47,9 +60,40 @@ const Home: React.FC = () => {
     });
   }, []);
 
+  const handleSelectNewLocation = (description: Suggestion): void => {
+    setValue(description.description, false);
+    clearSuggestions();
+
+    getGeocode({ address: description.place_id })
+      .then(results => getLatLng(results[0]))
+      .then(({ lat, lng }) => {
+        console.log('📍 Coordinates: ', { lat, lng });
+      })
+      .catch(err => {
+        console.log('Error: ', err);
+      });
+  };
+
+  const renderSuggestions = (): ReactNode =>
+    data.map(suggestion => {
+      const {
+        id,
+        structured_formatting: { main_text, secondary_text },
+      } = suggestion;
+
+      return (
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+        <li key={id}>
+          <strong>{main_text}</strong>
+          <small>{secondary_text}</small>
+        </li>
+      );
+    });
+
   function handleAddNewLocation(e: FormEvent): void {
     e.preventDefault();
-    console.log(newLocation);
+    // console.log(newLocation);
   }
 
   return (
@@ -93,13 +137,18 @@ const Home: React.FC = () => {
         <NewLocation>
           <InputNewLocation>
             <FiMap size={20} color="#dcc02b" />
-            <input type="text" onChange={e => setNewLocation(e.target.value)} />
+            <input
+              type="text"
+              value={value}
+              onChange={e => setValue(e.target.value)}
+            />
           </InputNewLocation>
 
           <button type="submit">
             <FiPlusCircle size={28} color="#dcc02b" />
           </button>
         </NewLocation>
+        {status === 'OK' && <ul>{renderSuggestions()}</ul>}
       </form>
 
       <LocationInfoContainer>
