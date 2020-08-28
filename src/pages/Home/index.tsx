@@ -1,6 +1,6 @@
 import React, { useEffect, useState, FormEvent, useCallback } from 'react';
 
-import { FiMapPin, FiSunrise, FiMap, FiPlusCircle } from 'react-icons/fi';
+import { FiMapPin, FiMap, FiPlusCircle } from 'react-icons/fi';
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -151,7 +151,6 @@ const Home: React.FC = () => {
             {status === 'OK' &&
               data.map((suggestion, i) => {
                 const {
-                  id,
                   structured_formatting: { main_text, secondary_text },
                 } = suggestion;
 
