@@ -16,6 +16,8 @@ import {
   DescriptionAndTemperature,
   NewLocation,
   InputNewLocation,
+  SelectCityContainer,
+  CitiesToSelect,
 } from './styles';
 
 interface CurrentCityInfoProps {
@@ -144,22 +146,28 @@ const Home: React.FC = () => {
             <FiPlusCircle size={28} color="#dcc02b" />
           </button>
         </NewLocation>
-        {status === 'OK' &&
-          data.map((suggestion, i) => {
-            const {
-              id,
-              structured_formatting: { main_text, secondary_text },
-            } = suggestion;
+        {status === 'OK' && (
+          <SelectCityContainer>
+            {status === 'OK' &&
+              data.map((suggestion, i) => {
+                const {
+                  id,
+                  structured_formatting: { main_text, secondary_text },
+                } = suggestion;
 
-            return (
-              <ul key={String(i)}>
-                <li onClick={() => handleSelectNewLocation(suggestion)}>
-                  <strong>{main_text}, </strong>
-                  <small>{secondary_text}</small>
-                </li>
-              </ul>
-            );
-          })}
+                return (
+                  <CitiesToSelect key={String(i)}>
+                    <ul>
+                      <li onClick={() => handleSelectNewLocation(suggestion)}>
+                        <strong>{main_text}, </strong>
+                        <small>{secondary_text}</small>
+                      </li>
+                    </ul>
+                  </CitiesToSelect>
+                );
+              })}
+          </SelectCityContainer>
+        )}
       </form>
 
       {cities &&
