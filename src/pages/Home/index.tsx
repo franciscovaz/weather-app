@@ -87,7 +87,7 @@ const Home: React.FC = () => {
       .then(response => {
         console.log(response.data);
         // Add ao array de cidades
-        setCities([...cities, response.data]);
+        setCities([response.data, ...cities]);
       });
 
     setValue('');
