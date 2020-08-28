@@ -51,7 +51,7 @@ const Home: React.FC = () => {
       const { latitude, longitude } = location.coords;
       api
         .get<CurrentCityInfoProps>(
-          `?lat=${latitude}&lon=${longitude}&units=metric&appid=${process.env.REACT_APP_OWA_API_KEY}`,
+          `?lat=${latitude}&lon=${longitude}&units=metric&appid=25059393c253e6364173550fdcd1fc10`,
         )
         .then(response => {
           setCurrentCityInfo(response.data);
@@ -81,9 +81,7 @@ const Home: React.FC = () => {
     console.log(cities);
     // Chamada à API para receber info da cidade
     api
-      .get(
-        `?q=${value}&units=metric&appid=${process.env.REACT_APP_OWA_API_KEY}`,
-      )
+      .get(`?q=${value}&units=metric&appid=25059393c253e6364173550fdcd1fc10`)
       .then(response => {
         console.log(response.data);
         // Add ao array de cidades
