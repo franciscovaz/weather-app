@@ -21,6 +21,13 @@ export const LocationTitle = styled.div`
   }
 `;
 
+export const LoadingCurrentInfoContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10%;
+`;
+
 export const LocationInfoContainer = styled.div`
   background-color: #ffffff;
   border: 0;

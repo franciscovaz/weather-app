@@ -17,6 +17,7 @@ import api from '../../services/api';
 import {
   Container,
   LocationTitle,
+  LoadingCurrentInfoContainer,
   LocationInfoContainer,
   IconAndTemperatureInfo,
   DescriptionAndTemperature,
@@ -151,7 +152,11 @@ const Home: React.FC = () => {
         <h1>Current Location</h1>
       </LocationTitle>
 
-      {currentCityInfo && (
+      {!currentCityInfo ? (
+        <LoadingCurrentInfoContainer>
+          <span>A carregar...</span>
+        </LoadingCurrentInfoContainer>
+      ) : (
         <LocationInfoContainer>
           <h2>
             {currentCityInfo.name}, {currentCityInfo.sys.country}
