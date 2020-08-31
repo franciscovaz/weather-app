@@ -106,6 +106,20 @@ const Home: React.FC = () => {
     return 0; // shouldnt get here!
   }, [currentCityInfo]);
 
+  const minTempFormatted = useMemo(() => {
+    if (currentCityInfo) {
+      return getFormattedTemperatures(currentCityInfo.main.temp_min);
+    }
+    return 0; // shouldn't get here
+  }, [currentCityInfo]);
+
+  const maxTempFormatted = useMemo(() => {
+    if (currentCityInfo) {
+      return getFormattedTemperatures(currentCityInfo.main.temp_max);
+    }
+    return 0; // shouldn't get here
+  }, [currentCityInfo]);
+
   return (
     <Container>
       <LocationTitle>
@@ -131,8 +145,7 @@ const Home: React.FC = () => {
           <DescriptionAndTemperature>
             <p>{currentCityInfo.weather[0].main}</p>
             <span>
-              {parseInt(String(currentCityInfo.main.temp_min), 10)}ºC -{' '}
-              {parseInt(String(currentCityInfo.main.temp_max), 10)}ºC
+              {minTempFormatted}ºC - {maxTempFormatted}ºC
             </span>
           </DescriptionAndTemperature>
         </LocationInfoContainer>
