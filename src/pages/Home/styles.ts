@@ -1,4 +1,8 @@
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
+
+interface LoadingInfoContainerProps {
+  loading?: boolean;
+}
 
 export const Container = styled.div`
   width: 100vw;
@@ -21,11 +25,29 @@ export const LocationTitle = styled.div`
   }
 `;
 
-export const LoadingCurrentInfoContainer = styled.div`
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+export const LoadingInfoContainer = styled.div<LoadingInfoContainerProps>`
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 10%;
+
+  ${props =>
+    props.loading &&
+    css`
+      svg {
+        animation: ${rotate} 2s linear infinite;
+      }
+    `}
 `;
 
 export const LocationInfoContainer = styled.div`

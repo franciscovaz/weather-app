@@ -6,7 +6,7 @@ import React, {
   useMemo,
 } from 'react';
 
-import { FiMapPin, FiMap, FiPlusCircle } from 'react-icons/fi';
+import { FiMapPin, FiMap, FiPlusCircle, FiLoader } from 'react-icons/fi';
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -17,7 +17,7 @@ import api from '../../services/api';
 import {
   Container,
   LocationTitle,
-  LoadingCurrentInfoContainer,
+  LoadingInfoContainer,
   LocationInfoContainer,
   IconAndTemperatureInfo,
   DescriptionAndTemperature,
@@ -46,7 +46,9 @@ const Home: React.FC = () => {
   ] = useState<CurrentCityInfoProps | null>(null);
 
   const [cities, setCities] = useState<CurrentCityInfoProps[]>([]);
+  const [citiesLoading, setCitiesLoading] = useState(true);
 
+  console.log(JSON.stringify(currentCityInfo));
   const {
     value,
     suggestions: { status, data },
@@ -86,14 +88,13 @@ const Home: React.FC = () => {
 
   function handleAddNewLocation(e: FormEvent): void {
     e.preventDefault();
-    console.log(cities);
     // Chamada à API para receber info da cidade
     api
       .get(`?q=${value}&units=metric&appid=25059393c253e6364173550fdcd1fc10`)
       .then(response => {
-        console.log(response.data);
         // Add ao array de cidades
         setCities([response.data, ...cities]);
+        setCitiesLoading(false);
       });
 
     setValue('');
@@ -153,9 +154,11 @@ const Home: React.FC = () => {
       </LocationTitle>
 
       {!currentCityInfo ? (
-        <LoadingCurrentInfoContainer>
-          <span>A carregar...</span>
-        </LoadingCurrentInfoContainer>
+        <LoadingInfoContainer loading={!!JSON.stringify(currentCityInfo)}>
+          <span>
+            <FiLoader size={24} />
+          </span>
+        </LoadingInfoContainer>
       ) : (
         <LocationInfoContainer>
           <h2>
@@ -228,6 +231,12 @@ const Home: React.FC = () => {
           </SelectCityContainer>
         )}
       </form>
+
+      {citiesLoading && (
+        <LoadingInfoContainer>
+          <span>No locations added</span>
+        </LoadingInfoContainer>
+      )}
 
       {cities &&
         cities.map(city => (
