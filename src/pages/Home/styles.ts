@@ -86,6 +86,7 @@ export const NewLocation = styled.div`
 `;
 
 export const InputNewLocation = styled.div`
+  width: 90vw;
   flex: 1;
   display: flex;
   align-items: center;
