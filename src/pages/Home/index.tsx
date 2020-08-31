@@ -207,9 +207,14 @@ const Home: React.FC = () => {
                 return (
                   <CitiesToSelect key={String(i)}>
                     <ul>
-                      <li onClick={() => handleSelectNewLocation(suggestion)}>
-                        <strong>{main_text}, </strong>
-                        <small>{secondary_text}</small>
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => handleSelectNewLocation(suggestion)}
+                        >
+                          <strong>{main_text}, </strong>
+                          <small>{secondary_text}</small>
+                        </button>
                       </li>
                     </ul>
                   </CitiesToSelect>

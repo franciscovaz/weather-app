@@ -128,6 +128,10 @@ export const CitiesToSelect = styled.div`
     padding: 0.5rem 4rem;
     li {
       list-style: none;
+      button {
+        border: 0;
+        background: transparent;
+      }
     }
   }
 `;
