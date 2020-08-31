@@ -120,6 +120,30 @@ const Home: React.FC = () => {
     return 0; // shouldn't get here
   }, [currentCityInfo]);
 
+  // New city formatted
+  const newCityTempFormated = useMemo(() => {
+    if (cities[0]) {
+      return getFormattedTemperatures(cities[0].main.temp);
+    }
+
+    return 0; // shouldnt get here!
+  }, [cities]);
+
+  const newCityMinTempFormated = useMemo(() => {
+    if (cities[0]) {
+      return getFormattedTemperatures(cities[0].main.temp_min);
+    }
+
+    return 0; // shouldnt get here!
+  }, [cities]);
+  const newCityMaxTempFormated = useMemo(() => {
+    if (cities[0]) {
+      return getFormattedTemperatures(cities[0].main.temp_max);
+    }
+
+    return 0; // shouldnt get here!
+  }, [cities]);
+
   return (
     <Container>
       <LocationTitle>
@@ -209,13 +233,12 @@ const Home: React.FC = () => {
                 width="85"
                 alt=""
               />
-              <h1>{parseInt(String(city.main.temp), 10)}ºC</h1>
+              <h1>{newCityTempFormated}ºC</h1>
             </IconAndTemperatureInfo>
             <DescriptionAndTemperature>
               <p>{city.weather[0].main}</p>
               <span>
-                {parseInt(String(city.main.temp_min), 10)}ºC -{' '}
-                {parseInt(String(city.main.temp_max), 10)}ºC
+                {newCityMinTempFormated}ºC - {newCityMaxTempFormated}ºC
               </span>
             </DescriptionAndTemperature>
           </LocationInfoContainer>
