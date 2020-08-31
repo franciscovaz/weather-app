@@ -1,4 +1,10 @@
-import React, { useEffect, useState, FormEvent, useCallback } from 'react';
+import React, {
+  useEffect,
+  useState,
+  FormEvent,
+  useCallback,
+  useMemo,
+} from 'react';
 
 import { FiMapPin, FiMap, FiPlusCircle } from 'react-icons/fi';
 import usePlacesAutocomplete, {
@@ -19,6 +25,7 @@ import {
   SelectCityContainer,
   CitiesToSelect,
 } from './styles';
+import getFormattedTemperatures from '../../utils/getFormattedTemperatures';
 
 interface CurrentCityInfoProps {
   main: { temp: number; temp_max: number; temp_min: number };
@@ -91,6 +98,14 @@ const Home: React.FC = () => {
     setValue('');
   }
 
+  const currentTempFormated = useMemo(() => {
+    if (currentCityInfo) {
+      return getFormattedTemperatures(currentCityInfo.main.temp);
+    }
+
+    return 0; // shouldnt get here!
+  }, [currentCityInfo]);
+
   return (
     <Container>
       <LocationTitle>
@@ -111,7 +126,7 @@ const Home: React.FC = () => {
               width="85"
               alt=""
             />
-            <h1>{parseInt(String(currentCityInfo.main.temp), 10)}ºC</h1>
+            <h1>{currentTempFormated}ºC</h1>
           </IconAndTemperatureInfo>
           <DescriptionAndTemperature>
             <p>{currentCityInfo.weather[0].main}</p>
