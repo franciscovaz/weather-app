@@ -27,6 +27,7 @@ import {
   CitiesToSelect,
 } from './styles';
 import getFormattedTemperatures from '../../utils/getFormattedTemperatures';
+import InfoContainer from '../../Components/InfoContainer';
 
 interface CurrentCityInfoProps {
   main: { temp: number; temp_max: number; temp_min: number };
@@ -48,7 +49,6 @@ const Home: React.FC = () => {
   const [cities, setCities] = useState<CurrentCityInfoProps[]>([]);
   const [citiesLoading, setCitiesLoading] = useState(true);
 
-  console.log(JSON.stringify(currentCityInfo));
   const {
     value,
     suggestions: { status, data },
@@ -160,27 +160,30 @@ const Home: React.FC = () => {
           </span>
         </LoadingInfoContainer>
       ) : (
-        <LocationInfoContainer>
-          <h2>
-            {currentCityInfo.name}, {currentCityInfo.sys.country}
-          </h2>
+        <>
+          <InfoContainer />
+          <LocationInfoContainer>
+            <h2>
+              {currentCityInfo.name}, {currentCityInfo.sys.country}
+            </h2>
 
-          <IconAndTemperatureInfo>
-            {/* <FiSunrise size={56} /> */}
-            <img
-              src={`http://openweathermap.org/img/w/${currentCityInfo.weather[0].icon}.png`}
-              width="85"
-              alt=""
-            />
-            <h1>{currentTempFormated}ºC</h1>
-          </IconAndTemperatureInfo>
-          <DescriptionAndTemperature>
-            <p>{currentCityInfo.weather[0].main}</p>
-            <span>
-              {minTempFormatted}ºC - {maxTempFormatted}ºC
-            </span>
-          </DescriptionAndTemperature>
-        </LocationInfoContainer>
+            <IconAndTemperatureInfo>
+              {/* <FiSunrise size={56} /> */}
+              <img
+                src={`http://openweathermap.org/img/w/${currentCityInfo.weather[0].icon}.png`}
+                width="85"
+                alt=""
+              />
+              <h1>{currentTempFormated}ºC</h1>
+            </IconAndTemperatureInfo>
+            <DescriptionAndTemperature>
+              <p>{currentCityInfo.weather[0].main}</p>
+              <span>
+                {minTempFormatted}ºC - {maxTempFormatted}ºC
+              </span>
+            </DescriptionAndTemperature>
+          </LocationInfoContainer>
+        </>
       )}
 
       <LocationTitle>
