@@ -1,10 +1,4 @@
-import React, {
-  useEffect,
-  useState,
-  FormEvent,
-  useCallback,
-  useMemo,
-} from 'react';
+import React, { useEffect, useState, FormEvent, useCallback } from 'react';
 
 import { FiMapPin, FiMap, FiPlusCircle, FiLoader } from 'react-icons/fi';
 import usePlacesAutocomplete, {
@@ -18,15 +12,12 @@ import {
   Container,
   LocationTitle,
   LoadingInfoContainer,
-  LocationInfoContainer,
-  IconAndTemperatureInfo,
-  DescriptionAndTemperature,
   NewLocation,
   InputNewLocation,
   SelectCityContainer,
   CitiesToSelect,
 } from './styles';
-import getFormattedTemperatures from '../../utils/getFormattedTemperatures';
+
 import InfoContainer from '../../Components/InfoContainer';
 
 interface CurrentCityInfoProps {
@@ -99,30 +90,6 @@ const Home: React.FC = () => {
 
     setValue('');
   }
-
-  // New city formatted
-  const newCityTempFormated = useMemo(() => {
-    if (cities[0]) {
-      return getFormattedTemperatures(cities[0].main.temp);
-    }
-
-    return 0; // shouldnt get here!
-  }, [cities]);
-
-  const newCityMinTempFormated = useMemo(() => {
-    if (cities[0]) {
-      return getFormattedTemperatures(cities[0].main.temp_min);
-    }
-
-    return 0; // shouldnt get here!
-  }, [cities]);
-  const newCityMaxTempFormated = useMemo(() => {
-    if (cities[0]) {
-      return getFormattedTemperatures(cities[0].main.temp_max);
-    }
-
-    return 0; // shouldnt get here!
-  }, [cities]);
 
   return (
     <Container>
@@ -197,29 +164,7 @@ const Home: React.FC = () => {
       )}
 
       {cities &&
-        cities.map(city => (
-          <LocationInfoContainer key={city.name}>
-            <h2>
-              {city.name}, {city.sys.country}
-            </h2>
-
-            <IconAndTemperatureInfo>
-              {/* <FiSunrise size={56} /> */}
-              <img
-                src={`http://openweathermap.org/img/w/${city.weather[0].icon}.png`}
-                width="85"
-                alt=""
-              />
-              <h1>{newCityTempFormated}ºC</h1>
-            </IconAndTemperatureInfo>
-            <DescriptionAndTemperature>
-              <p>{city.weather[0].main}</p>
-              <span>
-                {newCityMinTempFormated}ºC - {newCityMaxTempFormated}ºC
-              </span>
-            </DescriptionAndTemperature>
-          </LocationInfoContainer>
-        ))}
+        cities.map(city => <InfoContainer key={city.name} data={city} />)}
     </Container>
   );
 };
