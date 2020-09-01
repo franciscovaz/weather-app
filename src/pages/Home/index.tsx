@@ -100,28 +100,6 @@ const Home: React.FC = () => {
     setValue('');
   }
 
-  const currentTempFormated = useMemo(() => {
-    if (currentCityInfo) {
-      return getFormattedTemperatures(currentCityInfo.main.temp);
-    }
-
-    return 0; // shouldnt get here!
-  }, [currentCityInfo]);
-
-  const minTempFormatted = useMemo(() => {
-    if (currentCityInfo) {
-      return getFormattedTemperatures(currentCityInfo.main.temp_min);
-    }
-    return 0; // shouldn't get here
-  }, [currentCityInfo]);
-
-  const maxTempFormatted = useMemo(() => {
-    if (currentCityInfo) {
-      return getFormattedTemperatures(currentCityInfo.main.temp_max);
-    }
-    return 0; // shouldn't get here
-  }, [currentCityInfo]);
-
   // New city formatted
   const newCityTempFormated = useMemo(() => {
     if (cities[0]) {
@@ -160,30 +138,7 @@ const Home: React.FC = () => {
           </span>
         </LoadingInfoContainer>
       ) : (
-        <>
-          <InfoContainer />
-          <LocationInfoContainer>
-            <h2>
-              {currentCityInfo.name}, {currentCityInfo.sys.country}
-            </h2>
-
-            <IconAndTemperatureInfo>
-              {/* <FiSunrise size={56} /> */}
-              <img
-                src={`http://openweathermap.org/img/w/${currentCityInfo.weather[0].icon}.png`}
-                width="85"
-                alt=""
-              />
-              <h1>{currentTempFormated}ºC</h1>
-            </IconAndTemperatureInfo>
-            <DescriptionAndTemperature>
-              <p>{currentCityInfo.weather[0].main}</p>
-              <span>
-                {minTempFormatted}ºC - {maxTempFormatted}ºC
-              </span>
-            </DescriptionAndTemperature>
-          </LocationInfoContainer>
-        </>
+        <InfoContainer data={currentCityInfo} />
       )}
 
       <LocationTitle>
