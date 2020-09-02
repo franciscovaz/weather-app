@@ -16,6 +16,8 @@ import {
   InputNewLocation,
   SelectCityContainer,
   CitiesToSelect,
+  DetailedInformationWeatherContainer,
+  HourInformation,
 } from './styles';
 
 import InfoContainer from '../../Components/InfoContainer';
@@ -107,6 +109,64 @@ const Home: React.FC = () => {
       ) : (
         <InfoContainer data={currentCityInfo} />
       )}
+
+      <DetailedInformationWeatherContainer>
+        <HourInformation>
+          <span>17h</span>
+          <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
+          <span>20ºC</span>
+        </HourInformation>
+        <HourInformation>
+          <span>17h</span>
+          <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
+          <span>20ºC</span>
+        </HourInformation>
+        <HourInformation>
+          <span>17h</span>
+          <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
+          <span>20ºC</span>
+        </HourInformation>
+        <HourInformation>
+          <span>17h</span>
+          <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
+          <span>20ºC</span>
+        </HourInformation>
+        <HourInformation>
+          <span>17h</span>
+          <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
+          <span>20ºC</span>
+        </HourInformation>
+        <HourInformation>
+          <span>17h</span>
+          <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
+          <span>20ºC</span>
+        </HourInformation>
+        <HourInformation>
+          <span>17h</span>
+          <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
+          <span>20ºC</span>
+        </HourInformation>
+        <HourInformation>
+          <span>17h</span>
+          <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
+          <span>20ºC</span>
+        </HourInformation>
+        <HourInformation>
+          <span>17h</span>
+          <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
+          <span>20ºC</span>
+        </HourInformation>
+        <HourInformation>
+          <span>17h</span>
+          <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
+          <span>20ºC</span>
+        </HourInformation>
+        <HourInformation>
+          <span>17h</span>
+          <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
+          <span>20ºC</span>
+        </HourInformation>
+      </DetailedInformationWeatherContainer>
 
       <LocationTitle>
         <FiMapPin size={20} color="#dcc02b" />

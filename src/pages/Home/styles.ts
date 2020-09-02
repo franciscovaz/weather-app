@@ -118,3 +118,26 @@ export const CitiesToSelect = styled.div`
     }
   }
 `;
+
+export const DetailedInformationWeatherContainer = styled.div`
+  display: flex;
+  /* align-items: center;
+  justify-content: center; */
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-snap-align: center;
+
+  width: 90%;
+  background-color: #ffffff;
+  border: 0;
+  border-radius: 0.8rem;
+  margin: 3.2rem;
+  padding: 1.2rem 0rem;
+`;
+
+export const HourInformation = styled.div`
+  flex: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
