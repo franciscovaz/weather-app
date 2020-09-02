@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import getFormattedTemperatures from '../../utils/getFormattedTemperatures';
 
 import {
@@ -40,8 +40,13 @@ const InfoContainer: React.FC<InfoContainerProps> = ({ data }) => {
     }
     return 0; // shouldn't get here
   }, [data]);
+
+  const handleShowDetailedInfo = useCallback(() => {
+    console.log('Localização: ', data.name);
+  }, [data]);
+
   return (
-    <Container>
+    <Container onClick={handleShowDetailedInfo}>
       <h2>
         {data.name}, {data.sys.country}
       </h2>
