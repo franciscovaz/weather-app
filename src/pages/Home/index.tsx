@@ -41,6 +41,7 @@ const Home: React.FC = () => {
 
   const [cities, setCities] = useState<CurrentCityInfoProps[]>([]);
   const [citiesLoading, setCitiesLoading] = useState(true);
+  const [showDetail, setShowDetail] = useState(false);
 
   const {
     value,
@@ -110,63 +111,31 @@ const Home: React.FC = () => {
         <InfoContainer data={currentCityInfo} />
       )}
 
-      <DetailedInformationWeatherContainer>
-        <HourInformation>
-          <span>17h</span>
-          <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
-          <span>20ºC</span>
-        </HourInformation>
-        <HourInformation>
-          <span>17h</span>
-          <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
-          <span>20ºC</span>
-        </HourInformation>
-        <HourInformation>
-          <span>17h</span>
-          <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
-          <span>20ºC</span>
-        </HourInformation>
-        <HourInformation>
-          <span>17h</span>
-          <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
-          <span>20ºC</span>
-        </HourInformation>
-        <HourInformation>
-          <span>17h</span>
-          <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
-          <span>20ºC</span>
-        </HourInformation>
-        <HourInformation>
-          <span>17h</span>
-          <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
-          <span>20ºC</span>
-        </HourInformation>
-        <HourInformation>
-          <span>17h</span>
-          <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
-          <span>20ºC</span>
-        </HourInformation>
-        <HourInformation>
-          <span>17h</span>
-          <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
-          <span>20ºC</span>
-        </HourInformation>
-        <HourInformation>
-          <span>17h</span>
-          <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
-          <span>20ºC</span>
-        </HourInformation>
-        <HourInformation>
-          <span>17h</span>
-          <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
-          <span>20ºC</span>
-        </HourInformation>
-        <HourInformation>
-          <span>17h</span>
-          <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
-          <span>20ºC</span>
-        </HourInformation>
-      </DetailedInformationWeatherContainer>
+      {!showDetail && (
+        <DetailedInformationWeatherContainer>
+          <HourInformation>
+            <span>17h</span>
+            <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
+            <span>20ºC</span>
+          </HourInformation>
+
+          <HourInformation>
+            <span>17h</span>
+            <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
+            <span>20ºC</span>
+          </HourInformation>
+          <HourInformation>
+            <span>17h</span>
+            <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
+            <span>20ºC</span>
+          </HourInformation>
+          <HourInformation>
+            <span>17h</span>
+            <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
+            <span>20ºC</span>
+          </HourInformation>
+        </DetailedInformationWeatherContainer>
+      )}
 
       <LocationTitle>
         <FiMapPin size={20} color="#dcc02b" />
