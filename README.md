@@ -15,7 +15,7 @@
 ## 💇🏻‍♂️ About the project
 
 Project made from scratch using ReactJS and TypeScript. Mobile first and using open weather API to get all information about current location and other locations that user can search.
-Probably I will use Context API to share info between components, instaed of Redux. 
+Probably I will use Context API to share info between components, instaed of Redux.
 
 ---
 
@@ -24,7 +24,7 @@ Probably I will use Context API to share info between components, instaed of Red
   - ReactJS
   - Typescript
   - react-router-dom
-  - axios
+  - Axios
   - API: Open Weather Map API
 
 
