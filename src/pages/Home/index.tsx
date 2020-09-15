@@ -41,7 +41,7 @@ const Home: React.FC = () => {
 
   const [cities, setCities] = useState<CurrentCityInfoProps[]>([]);
   const [citiesLoading, setCitiesLoading] = useState(true);
-  const [showDetail, setShowDetail] = useState(false);
+  const showDetail = false;
 
   const {
     value,
@@ -111,7 +111,7 @@ const Home: React.FC = () => {
         <InfoContainer data={currentCityInfo} />
       )}
 
-      {!showDetail && (
+      {showDetail && (
         <DetailedInformationWeatherContainer>
           <HourInformation>
             <span>17h</span>
