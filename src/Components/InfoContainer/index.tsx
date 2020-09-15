@@ -1,4 +1,5 @@
 import React, { useMemo, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import getFormattedTemperatures from '../../utils/getFormattedTemperatures';
 
 import {
@@ -6,6 +7,7 @@ import {
   IconAndTemperatureInfo,
   DescriptionAndTemperature,
 } from './styles';
+import { showNextDaysForecastRequest } from '../../store/modules/nextDaysForecast/actions';
 
 interface CurrentCityInfoProps {
   main: { temp: number; temp_max: number; temp_min: number };
@@ -19,6 +21,8 @@ interface InfoContainerProps {
 }
 
 const InfoContainer: React.FC<InfoContainerProps> = ({ data }) => {
+  const dispatch = useDispatch();
+
   const currentTempFormated = useMemo(() => {
     if (data) {
       return getFormattedTemperatures(data.main.temp);
@@ -43,7 +47,8 @@ const InfoContainer: React.FC<InfoContainerProps> = ({ data }) => {
 
   const handleShowDetailedInfo = useCallback(() => {
     console.log('Localização: ', data.name);
-  }, [data]);
+    dispatch(showNextDaysForecastRequest(data.name));
+  }, [data, dispatch]);
 
   return (
     <Container onClick={handleShowDetailedInfo}>

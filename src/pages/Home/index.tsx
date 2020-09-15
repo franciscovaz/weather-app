@@ -6,6 +6,7 @@ import usePlacesAutocomplete, {
   getLatLng,
   Suggestion,
 } from 'use-places-autocomplete';
+import { useSelector } from 'react-redux';
 import api from '../../services/api';
 
 import {
@@ -21,6 +22,7 @@ import {
 } from './styles';
 
 import InfoContainer from '../../Components/InfoContainer';
+import { IState } from '../../store';
 
 interface CurrentCityInfoProps {
   main: { temp: number; temp_max: number; temp_min: number };
@@ -41,7 +43,6 @@ const Home: React.FC = () => {
 
   const [cities, setCities] = useState<CurrentCityInfoProps[]>([]);
   const [citiesLoading, setCitiesLoading] = useState(true);
-  const showDetail = false;
 
   const {
     value,
@@ -49,6 +50,11 @@ const Home: React.FC = () => {
     setValue,
     clearSuggestions,
   } = usePlacesAutocomplete({ requestOptions: {}, debounce: 300 });
+
+  const isNextDaysForecastOpen = useSelector<IState, boolean>(state => {
+    return state.nextDaysForecast.isInfoCardOpen;
+  });
+  console.log(isNextDaysForecastOpen);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(location => {
@@ -111,7 +117,7 @@ const Home: React.FC = () => {
         <InfoContainer data={currentCityInfo} />
       )}
 
-      {showDetail && (
+      {isNextDaysForecastOpen && (
         <DetailedInformationWeatherContainer>
           <HourInformation>
             <span>17h</span>
