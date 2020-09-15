@@ -46,7 +46,6 @@ const InfoContainer: React.FC<InfoContainerProps> = ({ data }) => {
   }, [data]);
 
   const handleShowDetailedInfo = useCallback(() => {
-    console.log('Localização: ', data.name);
     dispatch(showNextDaysForecastRequest(data.name));
   }, [data, dispatch]);
 

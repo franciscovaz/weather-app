@@ -18,6 +18,10 @@ const nextDaysForecast: Reducer<INextDaysForecastState> = (
         console.log('Request next days');
         break;
       }
+      case ActionTypes.showNextDaysForecastSuccess: {
+        console.log('Info da api ja no reducxer: ', action.payload);
+        break;
+      }
       default: {
         return draft;
       }

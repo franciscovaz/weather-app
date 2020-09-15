@@ -54,14 +54,13 @@ const Home: React.FC = () => {
   const isNextDaysForecastOpen = useSelector<IState, boolean>(state => {
     return state.nextDaysForecast.isInfoCardOpen;
   });
-  console.log(isNextDaysForecastOpen);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(location => {
       const { latitude, longitude } = location.coords;
       api
         .get<CurrentCityInfoProps>(
-          `?lat=${latitude}&lon=${longitude}&units=metric&appid=25059393c253e6364173550fdcd1fc10`,
+          `/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=25059393c253e6364173550fdcd1fc10`,
         )
         .then(response => {
           setCurrentCityInfo(response.data);
@@ -90,7 +89,9 @@ const Home: React.FC = () => {
     e.preventDefault();
     // Chamada à API para receber info da cidade
     api
-      .get(`?q=${value}&units=metric&appid=25059393c253e6364173550fdcd1fc10`)
+      .get(
+        `weather/?q=${value}&units=metric&appid=25059393c253e6364173550fdcd1fc10`,
+      )
       .then(response => {
         // Add ao array de cidades
         setCities([response.data, ...cities]);
