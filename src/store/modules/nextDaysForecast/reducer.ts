@@ -7,6 +7,10 @@ const INITIAL_STATE: INextDaysForecastState = {
   isInfoCardOpen: false,
 };
 
+interface EachDayProps {
+  dt_txt: string;
+}
+
 const nextDaysForecast: Reducer<INextDaysForecastState> = (
   state = INITIAL_STATE,
   action,
@@ -15,11 +19,22 @@ const nextDaysForecast: Reducer<INextDaysForecastState> = (
     switch (action.type) {
       case ActionTypes.showNextDaysForecastRequest: {
         draft.isInfoCardOpen = !draft.isInfoCardOpen;
-        console.log('Request next days');
         break;
       }
       case ActionTypes.showNextDaysForecastSuccess: {
-        console.log('Info da api ja no reducxer: ', action.payload);
+        const { list } = action.payload.cityInfo;
+
+        // console.log('Listagem: ', list);
+        // average, get 15h weather for each day
+
+        const filteredDaysForecast = list.filter((day: EachDayProps) =>
+          day.dt_txt.includes('15:00:00'),
+        );
+
+        console.log('Filtrado: ', filteredDaysForecast);
+
+        draft.forecastInfo.push(filteredDaysForecast);
+
         break;
       }
       default: {

@@ -19,7 +19,6 @@ function* getNextDaysForecast({ payload }: GetNextDaysForecastRequest) {
 
   if (apiResponse.data) {
     yield put(showNextDaysForecastSuccess(apiResponse.data));
-    console.log('Saga fez pedido api');
   }
 }
 
