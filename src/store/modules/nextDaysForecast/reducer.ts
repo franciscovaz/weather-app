@@ -18,6 +18,7 @@ const nextDaysForecast: Reducer<INextDaysForecastState> = (
   return produce(state, draft => {
     switch (action.type) {
       case ActionTypes.showNextDaysForecastRequest: {
+        // eslint-disable-next-line no-param-reassign
         draft.isInfoCardOpen = !draft.isInfoCardOpen;
         break;
       }
@@ -26,12 +27,12 @@ const nextDaysForecast: Reducer<INextDaysForecastState> = (
 
         // console.log('Listagem: ', list);
         // average, get 15h weather for each day
-
         const filteredDaysForecast = list.filter((day: EachDayProps) =>
           day.dt_txt.includes('15:00:00'),
         );
 
-        console.log('Filtrado: ', filteredDaysForecast);
+        // remove all content from array
+        draft.forecastInfo.splice(0);
 
         draft.forecastInfo.push(filteredDaysForecast);
 
@@ -41,6 +42,7 @@ const nextDaysForecast: Reducer<INextDaysForecastState> = (
         return draft;
       }
     }
+    return draft;
   });
 };
 
