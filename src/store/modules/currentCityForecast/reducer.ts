@@ -17,9 +17,7 @@ const currentCityForecast: Reducer<ICurrentCityState> = (
   switch (action.type) {
     case ActionTypes.showCurrentCityInfoRequest: {
       console.log('Request Current');
-      return {
-        ...state,
-      };
+      return state;
     }
     default: {
       return state;

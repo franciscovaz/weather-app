@@ -6,9 +6,14 @@ import rootReducer from './modules/rootReducer';
 
 import { INextDaysForecastState } from './modules/nextDaysForecast/types';
 import rootSaga from './modules/rootSaga';
+import { ICurrentCityState } from './modules/currentCityForecast/types';
 
 export interface IState {
   nextDaysForecast: INextDaysForecastState;
+}
+
+export interface ICurrentState {
+  currentCityForecast: ICurrentCityState;
 }
 
 const sagaMiddleware = createSagaMiddleware();

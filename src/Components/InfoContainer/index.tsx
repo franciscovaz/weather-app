@@ -8,6 +8,7 @@ import {
   DescriptionAndTemperature,
 } from './styles';
 import { showNextDaysForecastRequest } from '../../store/modules/nextDaysForecast/actions';
+import { showCurrentCityInfoRequest } from '../../store/modules/currentCityForecast/actions';
 
 interface CurrentCityInfoProps {
   main: { temp: number; temp_max: number; temp_min: number };
@@ -47,6 +48,7 @@ const InfoContainer: React.FC<InfoContainerProps> = ({ data }) => {
 
   const handleShowDetailedInfo = useCallback(() => {
     dispatch(showNextDaysForecastRequest(data.name));
+    dispatch(showCurrentCityInfoRequest(data.name));
   }, [data, dispatch]);
 
   return (
