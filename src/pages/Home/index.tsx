@@ -23,6 +23,9 @@ import {
 
 import InfoContainer from '../../Components/InfoContainer';
 import { IState } from '../../store';
+import { ICityResponse } from '../../store/modules/nextDaysForecast/types';
+import getFormattedTemperatures from '../../utils/getFormattedTemperatures';
+import getFormattedDay from '../../utils/getFormattedDay';
 
 interface CurrentCityInfoProps {
   main: { temp: number; temp_max: number; temp_min: number };
@@ -54,6 +57,10 @@ const Home: React.FC = () => {
   const isNextDaysForecastOpen = useSelector<IState, boolean>(state => {
     return state.nextDaysForecast.isInfoCardOpen;
   });
+
+  const nextDaysForecastInfo = useSelector<IState, ICityResponse[]>(
+    state => state.nextDaysForecast.forecastInfo,
+  );
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(location => {
@@ -120,27 +127,18 @@ const Home: React.FC = () => {
 
       {isNextDaysForecastOpen && (
         <DetailedInformationWeatherContainer>
-          <HourInformation>
-            <span>17h</span>
-            <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
-            <span>20ºC</span>
-          </HourInformation>
-
-          <HourInformation>
-            <span>17h</span>
-            <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
-            <span>20ºC</span>
-          </HourInformation>
-          <HourInformation>
-            <span>17h</span>
-            <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
-            <span>20ºC</span>
-          </HourInformation>
-          <HourInformation>
-            <span>17h</span>
-            <img src="http://openweathermap.org/img/w/01d.png" alt="Sun" />
-            <span>20ºC</span>
-          </HourInformation>
+          {isNextDaysForecastOpen &&
+            nextDaysForecastInfo &&
+            nextDaysForecastInfo.map(day => (
+              <HourInformation>
+                <span>{getFormattedDay(day.dt_txt)}</span>
+                <img
+                  src={`http://openweathermap.org/img/w/${day.weather[0].icon}.png`}
+                  alt="Sun"
+                />
+                <span>{getFormattedTemperatures(day.main.temp)}ºC</span>
+              </HourInformation>
+            ))}
         </DetailedInformationWeatherContainer>
       )}
 
