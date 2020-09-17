@@ -20,8 +20,6 @@ const nextDaysForecast: Reducer<INextDaysForecastState> = (
         ...state,
         isInfoCardOpen: !state.isInfoCardOpen,
       };
-
-      // break; ??????
     }
     case ActionTypes.showNextDaysForecastSuccess: {
       const { list } = action.payload.cityInfo;
@@ -35,7 +33,6 @@ const nextDaysForecast: Reducer<INextDaysForecastState> = (
         isInfoCardOpen: state.isInfoCardOpen,
         forecastInfo: filteredDaysForecast,
       };
-      // break; ??????
     }
     default: {
       return state;
