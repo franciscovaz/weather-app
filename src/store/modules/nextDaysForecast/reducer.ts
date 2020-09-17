@@ -1,5 +1,4 @@
 import { Reducer } from 'redux';
-import produce from 'immer';
 import { INextDaysForecastState, ActionTypes } from './types';
 
 const INITIAL_STATE: INextDaysForecastState = {
@@ -15,35 +14,33 @@ const nextDaysForecast: Reducer<INextDaysForecastState> = (
   state = INITIAL_STATE,
   action,
 ) => {
-  return produce(state, draft => {
-    switch (action.type) {
-      case ActionTypes.showNextDaysForecastRequest: {
-        // eslint-disable-next-line no-param-reassign
-        draft.isInfoCardOpen = !draft.isInfoCardOpen;
-        break;
-      }
-      case ActionTypes.showNextDaysForecastSuccess: {
-        const { list } = action.payload.cityInfo;
+  switch (action.type) {
+    case ActionTypes.showNextDaysForecastRequest: {
+      return {
+        ...state,
+        isInfoCardOpen: !state.isInfoCardOpen,
+      };
 
-        // console.log('Listagem: ', list);
-        // average, get 15h weather for each day
-        const filteredDaysForecast = list.filter((day: EachDayProps) =>
-          day.dt_txt.includes('15:00:00'),
-        );
-
-        // remove all content from array
-        draft.forecastInfo.splice(0);
-
-        draft.forecastInfo.push(filteredDaysForecast);
-
-        break;
-      }
-      default: {
-        return draft;
-      }
+      // break; ??????
     }
-    return draft;
-  });
+    case ActionTypes.showNextDaysForecastSuccess: {
+      const { list } = action.payload.cityInfo;
+
+      // average, get 15h weather for each day
+      const filteredDaysForecast = list.filter((day: EachDayProps) =>
+        day.dt_txt.includes('15:00:00'),
+      );
+
+      return {
+        isInfoCardOpen: state.isInfoCardOpen,
+        forecastInfo: filteredDaysForecast,
+      };
+      // break; ??????
+    }
+    default: {
+      return state;
+    }
+  }
 };
 
 export default nextDaysForecast;
