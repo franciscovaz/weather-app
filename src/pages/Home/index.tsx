@@ -75,6 +75,8 @@ const Home: React.FC = () => {
     });
   }, []);
 
+  // TODO new useEffect to ser currentCityInfo from STORE
+
   const handleSelectNewLocation = useCallback(
     (description: Suggestion) => {
       setValue(description.description, false);
