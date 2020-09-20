@@ -2,12 +2,8 @@ import { Reducer } from 'redux';
 import { ActionTypes, ICurrentCityState } from './types';
 
 const INITIAL_STATE: ICurrentCityState = {
-  dt: '',
-  main: { temp: 0, temp_max: 0, temp_min: 0 },
   name: '',
-  sys: { country: '', sunrise: 0, sunset: 0 },
-  weather: [{ description: '', icon: '', main: '' }],
-  dt_txt: '',
+  cityInfo: [],
 };
 
 const currentCityForecast: Reducer<ICurrentCityState> = (
@@ -16,8 +12,18 @@ const currentCityForecast: Reducer<ICurrentCityState> = (
 ) => {
   switch (action.type) {
     case ActionTypes.showCurrentCityInfoRequest: {
-      console.log('Request Current');
-      return state;
+      const { cityName } = action.payload;
+      return {
+        name: cityName,
+        cityInfo: [],
+      };
+    }
+    case ActionTypes.showCurrentCityInfoSuccess: {
+      const { cityInfo } = action.payload;
+      return {
+        name: cityInfo.name,
+        cityInfo: action.payload,
+      };
     }
     default: {
       return state;

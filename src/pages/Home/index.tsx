@@ -22,7 +22,7 @@ import {
 } from './styles';
 
 import InfoContainer from '../../Components/InfoContainer';
-import { IState } from '../../store';
+import { ICurrentState, IState } from '../../store';
 import { ICityResponse } from '../../store/modules/nextDaysForecast/types';
 import getFormattedTemperatures from '../../utils/getFormattedTemperatures';
 import getFormattedDay from '../../utils/getFormattedDay';
@@ -61,6 +61,15 @@ const Home: React.FC = () => {
   const nextDaysForecastInfo = useSelector<IState, ICityResponse[]>(
     state => state.nextDaysForecast.forecastInfo,
   );
+
+  const currentInfo = useSelector<ICurrentState, ICityResponse[]>(
+    state => state.currentCityForecast.cityInfo,
+  );
+
+  useEffect(() => {
+    console.log('Tenho info: ', currentInfo);
+    setCurrentCityInfo(currentInfo);
+  }, [currentInfo]);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(location => {
