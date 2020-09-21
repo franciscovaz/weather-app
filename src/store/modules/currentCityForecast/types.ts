@@ -14,5 +14,5 @@ export interface ICityResponse {
 }
 export interface ICurrentCityState {
   name: string;
-  cityInfo: ICityResponse[];
+  cityInfo: ICityResponse;
 }

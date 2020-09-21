@@ -62,7 +62,7 @@ const Home: React.FC = () => {
     state => state.nextDaysForecast.forecastInfo,
   );
 
-  const currentInfo = useSelector<ICurrentState, ICityResponse[]>(
+  const currentInfo = useSelector<ICurrentState, ICityResponse>(
     state => state.currentCityForecast.cityInfo,
   );
 
@@ -79,6 +79,7 @@ const Home: React.FC = () => {
           `/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=25059393c253e6364173550fdcd1fc10`,
         )
         .then(response => {
+          console.log(response.data);
           setCurrentCityInfo(response.data);
         });
     });

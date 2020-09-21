@@ -3,7 +3,14 @@ import { ActionTypes, ICurrentCityState } from './types';
 
 const INITIAL_STATE: ICurrentCityState = {
   name: '',
-  cityInfo: [],
+  cityInfo: {
+    dt: '',
+    main: { temp: 1, temp_max: 1, temp_min: 1 },
+    name: '',
+    sys: { country: '', sunrise: 1, sunset: 1 },
+    weather: [{ description: '', icon: '', main: '' }],
+    dt_txt: '',
+  },
 };
 
 const currentCityForecast: Reducer<ICurrentCityState> = (
