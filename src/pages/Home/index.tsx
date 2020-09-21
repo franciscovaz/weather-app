@@ -68,7 +68,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     console.log('Tenho info: ', currentInfo);
-    setCurrentCityInfo(currentInfo);
+    // setCurrentCityInfo(currentInfo);
   }, [currentInfo]);
 
   useEffect(() => {
