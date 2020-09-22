@@ -119,6 +119,12 @@ export const CitiesToSelect = styled.div`
   }
 `;
 
+export const DetailMainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 export const DetailedInformationWeatherContainer = styled.div`
   display: flex;
   /* align-items: center;

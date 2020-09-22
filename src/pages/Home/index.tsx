@@ -17,6 +17,7 @@ import {
   InputNewLocation,
   SelectCityContainer,
   CitiesToSelect,
+  DetailMainContainer,
   DetailedInformationWeatherContainer,
   HourInformation,
 } from './styles';
@@ -65,11 +66,9 @@ const Home: React.FC = () => {
   const currentInfo = useSelector<ICurrentState, ICityResponse>(
     state => state.currentCityForecast.cityInfo,
   );
-
-  useEffect(() => {
-    console.log('Tenho info: ', currentInfo);
-    // setCurrentCityInfo(currentInfo);
-  }, [currentInfo]);
+  const currentName = useSelector<ICurrentState, string>(
+    state => state.currentCityForecast.name,
+  );
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(location => {
@@ -79,13 +78,10 @@ const Home: React.FC = () => {
           `/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=25059393c253e6364173550fdcd1fc10`,
         )
         .then(response => {
-          console.log(response.data);
           setCurrentCityInfo(response.data);
         });
     });
   }, []);
-
-  // TODO new useEffect to ser currentCityInfo from STORE
 
   const handleSelectNewLocation = useCallback(
     (description: Suggestion) => {
@@ -138,20 +134,24 @@ const Home: React.FC = () => {
       )}
 
       {isNextDaysForecastOpen && (
-        <DetailedInformationWeatherContainer>
-          {isNextDaysForecastOpen &&
-            nextDaysForecastInfo &&
-            nextDaysForecastInfo.map(day => (
-              <HourInformation>
-                <span>{getFormattedDay(day.dt_txt)}</span>
-                <img
-                  src={`http://openweathermap.org/img/w/${day.weather[0].icon}.png`}
-                  alt="Sun"
-                />
-                <span>{getFormattedTemperatures(day.main.temp)}ºC</span>
-              </HourInformation>
-            ))}
-        </DetailedInformationWeatherContainer>
+        <DetailMainContainer>
+          <span>{currentName}</span>
+
+          <DetailedInformationWeatherContainer>
+            {isNextDaysForecastOpen &&
+              nextDaysForecastInfo &&
+              nextDaysForecastInfo.map(day => (
+                <HourInformation>
+                  <span>{getFormattedDay(day.dt_txt)}</span>
+                  <img
+                    src={`http://openweathermap.org/img/w/${day.weather[0].icon}.png`}
+                    alt="Sun"
+                  />
+                  <span>{getFormattedTemperatures(day.main.temp)}ºC</span>
+                </HourInformation>
+              ))}
+          </DetailedInformationWeatherContainer>
+        </DetailMainContainer>
       )}
 
       <LocationTitle>
