@@ -141,7 +141,7 @@ const Home: React.FC = () => {
             {isNextDaysForecastOpen &&
               nextDaysForecastInfo &&
               nextDaysForecastInfo.map(day => (
-                <HourInformation>
+                <HourInformation key={day.dt_txt}>
                   <span>{getFormattedDay(day.dt_txt)}</span>
                   <img
                     src={`http://openweathermap.org/img/w/${day.weather[0].icon}.png`}
@@ -210,7 +210,9 @@ const Home: React.FC = () => {
       )}
 
       {cities &&
-        cities.map(city => <InfoContainer key={city.name} data={city} />)}
+        cities.map(city => (
+          <InfoContainer key={city.sys.country} data={city} />
+        ))}
     </Container>
   );
 };
