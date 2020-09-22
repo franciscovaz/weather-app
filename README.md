@@ -9,6 +9,7 @@
 <p align="center">
   <a href="#%EF%B8%8F-about-the-project">About the project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-preview">Preview</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-getting-started">Getting started</a>&nbsp;&nbsp;&nbsp;
 </p>
 
@@ -21,15 +22,21 @@ Probably I will use Context API to share info between components, instaed of Red
 
 ## ⚙ Technologies
 
-  - ReactJS
-  - Typescript
-  - react-router-dom
-  - Axios
-  - API: Open Weather Map API
-
+- ReactJS
+- Typescript
+- Redux
+- Redux Saga
+- react-router-dom
+- Axios
+- Open Weather Map API
 
 ---
-<br />
+
+## 📸 Preview
+
+![Weather GIF](gif/weather.gif)
+
+---
 
 ## 💻 Getting started
 
@@ -40,7 +47,6 @@ Probably I will use Context API to share info between components, instaed of Red
   git clone https://github.com/franciscovaz/weather-app.git
 ```
 
-
 > Run project
 
 ```bash
@@ -50,7 +56,5 @@ Probably I will use Context API to share info between components, instaed of Red
   # Run web project
   yarn start
 ```
-
-
 
 ---
